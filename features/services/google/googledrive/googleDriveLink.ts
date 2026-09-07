@@ -1,0 +1,1 @@
+export type GoogleDriveLink = (googleDriveLink: string) => string;
