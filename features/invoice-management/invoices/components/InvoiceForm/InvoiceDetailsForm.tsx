@@ -1,22 +1,28 @@
 import React from "react";
-import participant from "../../../../features/invoice-management/types/ndisparticipant/ndisparticipant";
-import createProvider from "../../../invoice-management/types/serviceprovider/serviceprovider";
+import participant from "../../../../../features/dashboard/managements/client-management/clientTypes";
+import createProvider from "../../types/serviceprovider";
 
-const joeDoe = participant("Joe", " Doe", "4300123456", "joedoe@gmail.com");
+const joeDoe = participant(
+  { fullName: "joedoe@gmail.com" },
+  { email: "joedoe@gmail.com" },
+  "1234567890",
+);
 
 const rocky = createProvider(
-  "Rocky Babo Baboa Boxing Co",
+  {
+    fullName: "Rocky Babo Baboa Boxing Co",
+  },
+  { email: "rocky@rocky.com" },
   "123 456 789",
-  "rocky@rocky.com",
 );
 const DisplayProviderDetails = (): React.ReactElement => {
   return (
     <>
-      <h1 className="text-2xl font-bold">{rocky.providerName}</h1>
+      <h1 className="text-2xl font-bold">{rocky.name.fullName}</h1>
 
       <p className="mt-2 text-sm text-gray-600">ABN: {rocky.abn}</p>
 
-      <p className="text-sm text-gray-600">Email: {rocky.email}</p>
+      <p className="text-sm text-gray-600">Email: {rocky.email.email}</p>
     </>
   );
 };
@@ -26,11 +32,15 @@ const DisplayParticipantDetails = (): React.ReactElement => {
       <div className="mt-6">
         <p className="mb-2 text-sm font-semibold text-gray-900">Bill To:</p>
 
-        <p className="text-base font-semibold text-gray-900">{joeDoe.name}</p>
+        <p className="text-base font-semibold text-gray-900">
+          {joeDoe.name.fullName}
+        </p>
 
-        <p className="mt-1 text-sm text-gray-600">NDIS Number: {joeDoe.id}</p>
+        <p className="mt-1 text-sm text-gray-600">
+          NDIS Number: {joeDoe.participantNdisNumber}
+        </p>
 
-        <p className="text-sm text-gray-600">Email: {joeDoe.email}</p>
+        <p className="text-sm text-gray-600">Email: {joeDoe.email.email}</p>
       </div>
     </>
   );
@@ -59,7 +69,9 @@ const DisplayInvoiceDetails = (): React.ReactElement => {
               NDIS Participant Name:
             </span>
 
-            <span className="text-sm font-semibold">{joeDoe.name}</span>
+            <span className="text-sm font-semibold">
+              {joeDoe.name.fullName}
+            </span>
           </div>{" "}
         </div>
       </div>

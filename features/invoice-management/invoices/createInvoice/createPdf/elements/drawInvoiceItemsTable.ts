@@ -1,6 +1,6 @@
 import type { PDFPage } from "pdf-lib";
 
-import type { InvoiceItems } from "../../types/invoiceItem";
+import type { InvoiceItems } from "../../../types/invoiceItem";
 import type { PdfPosition } from "../types/pdfTypes";
 
 const rowHeight = 20;

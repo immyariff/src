@@ -17,11 +17,8 @@ const createPdf = async (invoice: Invoice): Promise<Uint8Array> => {
   const page = document.addPage();
 
   drawInvoiceHeader(page, invoice, regularFont, boldFont);
-
   drawParticipantDetails(page, invoice, regularFont, boldFont);
-
   drawInvoiceItems(page, invoice, regularFont, boldFont);
-
   drawInvoiceTotals(page, invoice, regularFont, boldFont);
 
   return document.save();
@@ -74,9 +71,16 @@ const drawInvoiceHeader = (
     font: regularFont,
   });
 
-  page.drawText(`Date: ${invoice.dates}`, {
+  page.drawText(`Issued Date: ${invoice.dates.issueDate(new Date())}`, {
     x: titleX,
     y: height - 106,
+    size: SMALL_FONT_SIZE,
+    font: regularFont,
+  });
+
+  page.drawText(`Due Date: ${invoice.dates.dueDate(new Date())}`, {
+    x: titleX,
+    y: height - 122,
     size: SMALL_FONT_SIZE,
     font: regularFont,
   });
@@ -89,7 +93,6 @@ const drawParticipantDetails = (
   boldFont: PDFFont,
 ): void => {
   const { height } = page.getSize();
-
   const top = height - 145;
 
   page.drawText("NDIS PARTICIPANT", {
@@ -134,7 +137,6 @@ const drawInvoiceItems = (
   const hoursX = 405;
   const rateX = 455;
   const amountX = 515;
-
   const rowHeight = 24;
 
   page.drawRectangle({
@@ -183,14 +185,8 @@ const drawInvoiceItems = (
     const rowY = tableTop - rowHeight * (index + 1);
 
     page.drawLine({
-      start: {
-        x: PAGE_MARGIN,
-        y: rowY,
-      },
-      end: {
-        x: PAGE_MARGIN + 495,
-        y: rowY,
-      },
+      start: { x: PAGE_MARGIN, y: rowY },
+      end: { x: PAGE_MARGIN + 495, y: rowY },
       thickness: 0.5,
       color: rgb(0.8, 0.8, 0.8),
     });
@@ -247,69 +243,63 @@ const drawInvoiceTotals = (
 ): void => {
   const { height } = page.getSize();
 
-  const x = 400;
-  const valueX = 515;
-
+  const labelX = 400;
+  const valueX = 545;
   const y = height - 530;
 
   page.drawText("Subtotal", {
-    x,
+    x: labelX,
     y,
     size: FONT_SIZE,
     font: regularFont,
   });
 
-  // drawRightAlignedText(
-  //   page,
-  //   formatCurrency(`${invoice.totals}`),
-  //   valueX,
-  //   y,
-  //   regularFont,
-  //   FONT_SIZE,
-  // );
+  drawRightAlignedText(
+    page,
+    formatCurrency(invoice.totals.subtotal),
+    valueX,
+    y,
+    regularFont,
+    FONT_SIZE,
+  );
 
   page.drawText("Super Contribution", {
-    x,
+    x: labelX,
     y: y - 20,
     size: FONT_SIZE,
     font: regularFont,
   });
 
-  // drawRightAlignedText(
-  //   page,
-  //   formatCurrency(invoice.superContribution),
-  //   valueX,
-  //   y - 20,
-  //   regularFont,
-  //   FONT_SIZE,
-  // );
+  drawRightAlignedText(
+    page,
+    formatCurrency(invoice.totals.superContribution),
+    valueX,
+    y - 20,
+    regularFont,
+    FONT_SIZE,
+  );
 
   page.drawLine({
-    start: {
-      x,
-      y: y - 32,
-    },
-    end: {
-      x: valueX,
-      y: y - 32,
-    },
+    start: { x: labelX, y: y - 32 },
+    end: { x: valueX, y: y - 32 },
     thickness: 1,
   });
 
   page.drawText("TOTAL", {
-    x,
+    x: labelX,
     y: y - 52,
     size: 12,
     font: boldFont,
   });
 
-  // drawRightAlignedText(
-  //   page.    drawText(`Total Amount $ ${invoice.totals.total}`),
-  //   valueX,
-  //   y - 52,
-  //   boldFont,
-  //   12,
-  // );
+  drawRightAlignedText(
+    page,
+    formatCurrency(invoice.totals.total),
+    valueX,
+    y - 52,
+    boldFont,
+    12,
+  );
 };
 
 const drawRightAlignedText = (

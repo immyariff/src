@@ -1,6 +1,6 @@
 import type { PDFPage } from "pdf-lib";
 
-import type { NDISParticipant } from "../../types/ndisParticipant";
+import type { NDISParticipant } from "../../../../../dashboard/managements/client-management";
 import type { PdfPosition } from "../types/pdfTypes";
 
 const drawParticipantDetails = (
@@ -14,7 +14,7 @@ const drawParticipantDetails = (
     size: 10,
   });
 
-  page.drawText(participant.name, {
+  page.drawText(participant.name.fullName, {
     x: position.x,
     y: position.y - 18,
     size: 11,
@@ -29,7 +29,7 @@ const drawParticipantDetails = (
     },
   );
 
-  page.drawText(participant.email, {
+  page.drawText(participant.email.email, {
     x: position.x,
     y: position.y - 54,
     size: 10,

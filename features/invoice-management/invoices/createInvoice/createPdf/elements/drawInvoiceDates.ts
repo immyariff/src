@@ -1,7 +1,7 @@
 import type { PDFPage } from "pdf-lib";
 
-import type { InvoiceNumber } from "../../types/invoiceNumber";
-import type { InvoiceDates } from "../../types/invoiceDate";
+import type { InvoiceNumber } from "../../../types/invoiceNumber";
+import type { InvoiceDates } from "../../../types/invoiceDate";
 import type { PdfPosition } from "../types/pdfTypes";
 
 const drawInvoiceDates = (

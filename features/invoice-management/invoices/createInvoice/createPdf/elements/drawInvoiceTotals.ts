@@ -1,6 +1,6 @@
 import type { PDFPage } from "pdf-lib";
 
-import type { InvoiceTotals } from "../../types/invoiceTotals";
+import type { InvoiceTotals } from "../../../types/invoiceTotals";
 import type { PdfPosition } from "../types/pdfTypes";
 
 const drawInvoiceTotals = (

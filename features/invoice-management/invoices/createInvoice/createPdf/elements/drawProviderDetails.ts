@@ -1,6 +1,6 @@
 import type { PDFPage } from "pdf-lib";
 
-import type { ServiceProvider } from "../../types/serviceProvider";
+import type { ServiceProvider } from "../../../types/serviceprovider";
 import type { PdfPosition } from "../types/pdfTypes";
 
 const drawProviderDetails = (
@@ -8,7 +8,7 @@ const drawProviderDetails = (
   provider: ServiceProvider,
   position: PdfPosition,
 ): void => {
-  page.drawText(provider.name, {
+  page.drawText(provider.name.fullName, {
     x: position.x,
     y: position.y,
     size: 12,
@@ -20,7 +20,7 @@ const drawProviderDetails = (
     size: 10,
   });
 
-  page.drawText(provider.email, {
+  page.drawText(provider.email.email, {
     x: position.x,
     y: position.y - 36,
     size: 10,

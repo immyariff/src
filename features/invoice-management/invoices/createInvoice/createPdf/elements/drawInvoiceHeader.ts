@@ -1,6 +1,6 @@
 import type { PDFPage } from "pdf-lib";
 
-import type { Invoice } from "../../types/invoice";
+import type { Invoice } from "../../../types/invoice";
 import drawInvoiceDates from "./drawInvoiceDates";
 import drawInvoiceTitle from "./drawInvoiceTitle";
 import drawProviderDetails from "./drawProviderDetails";
